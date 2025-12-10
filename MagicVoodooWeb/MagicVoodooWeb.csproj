@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <InvariantGlobalization>true</InvariantGlobalization>
+
+    <!-- SPA Optimization -->
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+    <PublishTrimmed>true</PublishTrimmed>
+    <PublishAot>true</PublishAot>
+
+    <!-- Reduce output size -->
+    <DebuggerSupport>false</DebuggerSupport>
+    <UseSystemTextJson>true</UseSystemTextJson>
+
+    <!-- Enable service worker install for PWA -->
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+
+    <!-- Enables pre-compressed static assets -->
+    <BlazorCacheBootResources>true</BlazorCacheBootResources>
+    <BlazorEnableCompression>true</BlazorEnableCompression>
+
+    <AssemblyName>MagicVoodooWeb</AssemblyName>
+    <RootNamespace>MagicVoodooWeb</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+  </ItemGroup>
+
+</Project>
