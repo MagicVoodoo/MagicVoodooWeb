@@ -1,31 +1,45 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
+  <!-- Default settings (apply to both Debug & Release) -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <InvariantGlobalization>true</InvariantGlobalization>
 
-    <!-- SPA Optimization -->
-    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishAot>true</PublishAot>
+    <!-- AOT for Release (will override in Debug below) -->
+    <BlazorWebAssemblyEnableAOT>true</BlazorWebAssemblyEnableAOT>
 
-    <!-- Reduce output size -->
-    <DebuggerSupport>false</DebuggerSupport>
+    <PublishTrimmed>true</PublishTrimmed>
     <UseSystemTextJson>true</UseSystemTextJson>
 
-    <!-- Enable service worker install for PWA -->
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-
-    <!-- Enables pre-compressed static assets -->
+    <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
     <BlazorCacheBootResources>true</BlazorCacheBootResources>
-    <BlazorEnableCompression>true</BlazorEnableCompression>
+
+    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 
     <AssemblyName>MagicVoodooWeb</AssemblyName>
     <RootNamespace>MagicVoodooWeb</RootNamespace>
   </PropertyGroup>
 
+
+  <!-- DEBUG BUILD OVERRIDES -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebuggerSupport>true</DebuggerSupport>
+    <!-- AOT OFF in Debug -->
+    <BlazorWebAssemblyEnableAOT>false</BlazorWebAssemblyEnableAOT>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+  
+  <!-- RELEASE BUILD OVERRIDES -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebuggerSupport>false</DebuggerSupport>
+    <!-- AOT ON in Release -->
+    <BlazorWebAssemblyEnableAOT>true</BlazorWebAssemblyEnableAOT>
+    <PublishTrimmed>true</PublishTrimmed>
+  </PropertyGroup>
+
+  <!-- REQUIRED PACKAGES -->
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.0" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>

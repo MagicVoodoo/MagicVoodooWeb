@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="MagicVoodooWeb.styles.css" rel="stylesheet" />
     <base href="/" />
 
     <link rel="manifest" href="manifest.json">
@@ -19,7 +20,20 @@
     <title>Magic Voodoo</title>
 </head>
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div class="mv-loading">
+            <img src="img/pin.svg" class="mv-loading-logo" alt="Magic Voodoo Logo" />
+            <div class="mv-loading-text">Crafting the Magic...</div>
+        </div>
+    </div>
+
+    <script>
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDark) {
+            document.documentElement.classList.add("dark");
+        }
+    </script>
     <script src="_framework/blazor.webassembly.js" autostart="true"></script>
+
 </body>
 </html>
