@@ -1,48 +1,50 @@
-@using System.Xml
 @using MagicVoodooWeb.Models
 @if (Visible)
 {
-    <div class="mv-contact-backdrop" @onclick="OnBackdropClicked">
-        <div class="mv-contact-modal" @onclick:stopPropagation="true">
+    <div class="mv-contact-backdrop @(Closing ? "closing" : "")" @onclick="OnBackdropClicked">
 
+        <div id="mv-contact-modal" class="mv-contact-modal @(Closing ? "closing" : "")"
+             @onclick:stopPropagation="true">
+
+            @* Close button (floating, outside content flow) *@
             <button class="mv-close-btn" @onclick="OnCloseClicked">×</button>
 
-            <h2>Contact Us</h2>
+            <div class="mv-modal-body">
 
-            <EditForm Model="@Form" OnValidSubmit="OnSubmitClicked">
-                <DataAnnotationsValidator />
+                <h2 class="mv-modal-title">Contact Us</h2>
 
-                <div class="field">
-                    <label>Name</label>
-                    <InputText id="name" @bind-Value="Form.Name" required class="mv-input" />
+                <EditForm Model="@Form" OnValidSubmit="OnSubmitClicked">
+                    <DataAnnotationsValidator />
+
+                    <div class="mv-form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="Form.Name" required class="mv-input" />
+                    </div>
+
+                    <div class="mv-form-group">
+                        <label>Email</label>
+                        <InputText @bind-Value="Form.Email" type="email" required class="mv-input" />
+                    </div>
+
+                    <div class="mv-form-group">
+                        <label>Message</label>
+                        <InputTextArea @bind-Value="Form.Message" required class="mv-textarea" />
+                    </div>
+
+                    <button type="submit" class="mv-submit">Send</button>
+                </EditForm>
+
+                @* Success message gets its own wrapper to avoid layout shifting *@
+                <div class="mv-success-wrapper" hidden="@(!Submitted)">
+                    <p class="mv-success">Your message has been sent!</p>
+                </div>
+                
+                @* Error message gets its own wrapper to avoid layout shifting *@
+                <div class="mv-success-wrapper" hidden="@(!Error)">
+                    <p class="mv-error">Your message has been sent!</p>
                 </div>
 
-                <div class="field">
-                    <label>Email</label>
-                    <InputText id="email" @bind-Value="Form.Email" type="email" required class="mv-input" />
-                </div>
-
-                <div class="field">
-                    <label>Message</label>
-                    <InputTextArea id="message" @bind-Value="Form.Message" required class="mv-input"
-                                   style="width:100%;max-width:100%;min-height:5rem;"/>
-                </div>
-
-                <button type="submit" class="mv-btn mv-btn-primary mv-submit">Send</button>
-            </EditForm>
-
-            @if (Submitted)
-            {
-                <p class="mv-success">Your message has been sent!</p>
-            }
-            
-            @if (Error)
-            {
-                <p class="mv-error">There was an error sending your message. Please try again later.</p>
-            }
-            
-            
-
+            </div>
         </div>
     </div>
 }
@@ -70,22 +72,25 @@
     protected bool Submitted { get; set; }
     protected bool Error { get; set; }
     protected FormMessage Form { get; set; } = new();
+    public bool Closing { get; set; }
 
     // UI EVENT HANDLERS (NO BUSINESS LOGIC)
     Task OnCloseClicked() 
-        => Close();
+        => CloseAsync();
     
     Task OnBackdropClicked()
-        => CloseOnBackdropClick ? Close() : Task.CompletedTask ;
+        => CloseOnBackdropClick ? CloseAsync() : Task.CompletedTask ;
     
     Task OnSubmitClicked()
-        => Submit(); // Delegates to code-behind
+        => SubmitAsync(); // Delegates to code-behind
 
-    protected Task Close()
+    protected async Task CloseAsync()
     {
-        Form = new();
+        Closing = true;
+        StateHasChanged();
+        await Task.Delay(250); // match animation duration
         Submitted = false;
-        Visible = false;
-        return Task.CompletedTask;
+        await VisibleChanged.InvokeAsync(false);
+        Closing = false; // reset
     }
 }

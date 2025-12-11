@@ -10,7 +10,7 @@ public partial class ContactForm : ComponentBase{
     [Inject] public FormSpreeService FormSpreeService { get; set; }
     
     // BUSINESS LOGIC FOR SUBMISSION
-    protected async Task Submit()
+    protected async Task SubmitAsync()
     {
         try
         {
