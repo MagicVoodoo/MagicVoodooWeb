@@ -1,6 +1,6 @@
 /* HERO LOGO BASE */
 .mv-hero-logo {
-    width: min(360px, 80vw);
+    width: min(500px, 80vw);
     height: auto;
     opacity: 0.92;
     transition: opacity 0.35s ease, transform 0.35s ease;
