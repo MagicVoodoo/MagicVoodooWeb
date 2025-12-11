@@ -8,13 +8,21 @@
     --mv-muted: #222222;
 }
 
-:root.dark {
-    --mv-bg: #000000;
-    --mv-fg: #ffffff;
-    --mv-muted: #cccccc;
+/* Auto dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --mv-bg: #000000;
+        --mv-fg: #ffffff;
+        --mv-muted: #cccccc;
+    }
+
+    /* Make black SVG readable */
+    .mv-loading-logo{
+        filter: invert(1) brightness(200%);
+    }
 }
 
-/* Smooth transition */
+/* Layout */
 html, body {
     background: var(--mv-bg);
     color: var(--mv-fg);
@@ -96,11 +104,6 @@ code {
     animation: mv-pulse 1.5s ease-in-out infinite;
 }
 
-/* Auto-invert logo in dark mode */
-:root.dark .mv-loading-logo {
-    filter: invert(1);
-}
-
 /* Text */
 .mv-loading-text {
     font-size: 1.1rem;
@@ -114,3 +117,5 @@ code {
     50%  { transform: scale(1.12); opacity: 1; }
     100% { transform: scale(1); opacity: .75; }
 }
+
+

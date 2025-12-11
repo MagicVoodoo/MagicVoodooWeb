@@ -8,23 +8,37 @@
     gap: 1rem;
 }
 
-.mv-hero-logo {
-    width: min(360px, 80vw);
-    height: auto;
-    opacity: 0.92;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    user-select: none;
-    pointer-events: none;
+/* ---------- SECTION HEADERS ---------- */
+
+section h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
-.mv-hero-logo:hover {
-    opacity: 1;
-    transform: scale(1.02);
+section p,
+section li {
+    line-height: 1.6;
 }
 
-.mv-tagline {
-    font-size: 1.1rem;
-    opacity: 0.75;
-    letter-spacing: 0.05em;
-    max-width: 480px;
+/* ---------- SERVICES ---------- */
+
+.services ul {
+    list-style: none;
+    padding: 0;
 }
+
+.services li {
+    padding-left: 1rem;
+    margin-bottom: 0.4rem;
+    position: relative;
+}
+
+.services li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    opacity: 0.7;
+}
+

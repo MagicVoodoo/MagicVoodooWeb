@@ -1,0 +1,91 @@
+@using System.Xml
+@using MagicVoodooWeb.Models
+@if (Visible)
+{
+    <div class="mv-contact-backdrop" @onclick="OnBackdropClicked">
+        <div class="mv-contact-modal" @onclick:stopPropagation="true">
+
+            <button class="mv-close-btn" @onclick="OnCloseClicked">×</button>
+
+            <h2>Contact Us</h2>
+
+            <EditForm Model="@Form" OnValidSubmit="OnSubmitClicked">
+                <DataAnnotationsValidator />
+
+                <div class="field">
+                    <label>Name</label>
+                    <InputText id="name" @bind-Value="Form.Name" required class="mv-input" />
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <InputText id="email" @bind-Value="Form.Email" type="email" required class="mv-input" />
+                </div>
+
+                <div class="field">
+                    <label>Message</label>
+                    <InputTextArea id="message" @bind-Value="Form.Message" required class="mv-input"
+                                   style="width:100%;max-width:100%;min-height:5rem;"/>
+                </div>
+
+                <button type="submit" class="mv-btn mv-btn-primary mv-submit">Send</button>
+            </EditForm>
+
+            @if (Submitted)
+            {
+                <p class="mv-success">Your message has been sent!</p>
+            }
+            
+            @if (Error)
+            {
+                <p class="mv-error">There was an error sending your message. Please try again later.</p>
+            }
+            
+            
+
+        </div>
+    </div>
+}
+
+@code {
+    // UI State Only
+    [Parameter]
+    public bool Visible
+    {
+        get;
+        set
+        {
+            if (field == value)
+                return;
+
+            field = value;
+            VisibleChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+    
+    [Parameter] public bool CloseOnBackdropClick { get; set; } = true;
+
+    protected bool Submitted { get; set; }
+    protected bool Error { get; set; }
+    protected FormMessage Form { get; set; } = new();
+
+    // UI EVENT HANDLERS (NO BUSINESS LOGIC)
+    Task OnCloseClicked() 
+        => Close();
+    
+    Task OnBackdropClicked()
+        => CloseOnBackdropClick ? Close() : Task.CompletedTask ;
+    
+    Task OnSubmitClicked()
+        => Submit(); // Delegates to code-behind
+
+    protected Task Close()
+    {
+        Form = new();
+        Submitted = false;
+        Visible = false;
+        return Task.CompletedTask;
+    }
+}

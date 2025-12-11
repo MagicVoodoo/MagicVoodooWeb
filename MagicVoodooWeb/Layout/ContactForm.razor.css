@@ -1,0 +1,155 @@
+/* --------------------------------------------------------------
+   Contact Form Popup — Scoped CSS
+   Magic Voodoo, LLC
+-------------------------------------------------------------- */
+
+/* Backdrop overlay */
+.mv-contact-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: mv-fade-in 0.25s ease forwards;
+}
+
+/* Modal panel */
+.mv-contact-modal {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 2rem;
+    width: min(90%, 480px);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35);
+    position: relative;
+    animation: mv-modal-pop 0.35s ease forwards;
+    color: #000;
+}
+
+/* Title */
+.mv-contact-modal h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Close button */
+.mv-close-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+}
+
+.mv-close-btn:hover {
+    transform: scale(1.15);
+}
+
+/* Form fields */
+.field {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+::deep #textarea {
+    width: 100%;
+    max-width: 100%;
+    min-height: 5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+
+.mv-input {
+    width: 100%;
+    padding: 0.65rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.mv-input:focus {
+    outline: 2px solid rgba(0, 0, 0, 0.35);
+}
+
+
+/* Submit button */
+.mv-submit {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Success message */
+.mv-success {
+    margin-top: 1rem;
+    text-align: center;
+    color: #008000;
+    font-weight: bold;
+}
+.mv-success {
+    margin-top: 1rem;
+    text-align: center;
+    color: #800000;
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------
+   Animations
+-------------------------------------------------------------- */
+@keyframes mv-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes mv-modal-pop {
+    0%   { opacity: 0; transform: translateY(20px) scale(0.92); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --------------------------------------------------------------
+   Dark Mode Overrides
+   Important: must use :global() so scoped CSS can target html root.
+-------------------------------------------------------------- */
+:global(.dark) .mv-contact-modal {
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 48px rgba(255, 255, 255, 0.18);
+}
+
+:global(.dark) .mv-input {
+    background: rgba(0, 0, 0, 0.45);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: white;
+}
+
+:global(.dark) .mv-input:focus {
+    outline: 2px solid rgba(255,255,255,0.4);
+}
+
+:global(.dark) .mv-close-btn {
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+}

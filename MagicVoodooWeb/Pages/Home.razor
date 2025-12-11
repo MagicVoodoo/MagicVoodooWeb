@@ -1,12 +1,42 @@
 ﻿@page "/"
 
 <div class="mv-hero">
-    <img src="img/hero-logo.svg" class="mv-hero-logo" alt="Magic Voodoo" />
+    <HeroLogo />
     <p class="mv-tagline">Powered by caffeine, code, and questionable wizardry.</p>
+    
+    <section class="about">
+        <h2>About Magic Voodoo</h2>
+        <p>
+            Magic Voodoo is a software development consultancy specializing in modern .NET
+            technologies, including Blazor WebAssembly, .NET MAUI, and distributed application
+            architectures. We build elegant solutions for complex problems — quickly, reliably,
+            and with a bit of creative spark.
+        </p>
+    </section>
 
-
-    <p class="mv-subtext">
-        Modern .NET consulting, Blazor and MAUI development,
-        and clean engineering for complex challenges.
-    </p>
+    <section class="services">
+        <h2>What We Do</h2>
+        <ul>
+            <li>Modern .NET development</li>
+            <li>Cross-platform app design with .NET MAUI</li>
+            <li>Architecture & troubleshooting</li>
+            <li>Performance tuning & integrations</li>
+        </ul>
+    </section>
+    
+    <section class="contact">
+        <button class="mv-btn mv-btn-primary" @onclick="ContactButtonClicked" >Contact Us</button>
+    </section>
+    
+    <ContactForm  @bind-Visible="_contactFormVisible"/>
 </div>
+
+@code {
+    bool _contactFormVisible = false;
+
+    private void ContactButtonClicked()
+    {
+        _contactFormVisible = true;
+    }
+
+}
