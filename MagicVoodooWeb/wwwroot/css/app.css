@@ -1,0 +1,121 @@
+/* --------------------------------------------------------------
+   Magic Voodoo Light & Dark Theme (Automatic)
+-------------------------------------------------------------- */
+
+:root {
+    --mv-bg: #ffffff;
+    --mv-fg: #000000;
+    --mv-muted: #222222;
+}
+
+/* Auto dark mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --mv-bg: #000000;
+        --mv-fg: #ffffff;
+        --mv-muted: #cccccc;
+    }
+
+    /* Make black SVG readable */
+    .mv-loading-logo{
+        filter: invert(1) brightness(200%);
+    }
+}
+
+/* Layout */
+html, body {
+    background: var(--mv-bg);
+    color: var(--mv-fg);
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* Remove ugly focus outlines but keep accessibility */
+h1:focus, a:focus, button:focus {
+    outline: 2px solid var(--mv-fg);
+}
+
+/* Layout helpers */
+.content {
+    padding-top: 1.1rem;
+}
+
+/* Blazor error UI */
+#blazor-error-ui {
+    background: #000;
+    color: #fff;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    padding: 1rem;
+    width: 100%;
+    display: none;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    position: absolute;
+    right: 1rem;
+    top: 0.75rem;
+}
+
+.blazor-error-boundary {
+    background: #000;
+    color: #fff;
+    padding: 1rem;
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred.";
+}
+
+/* Code elements */
+code {
+    color: #000;
+    background: #eee;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* --------------------------------------------------------------
+   Magic Voodoo Loading Screen
+-------------------------------------------------------------- */
+
+.mv-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--mv-bg);
+    color: var(--mv-fg);
+    text-align: center;
+}
+
+/* Logo */
+.mv-loading-logo {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+    margin-bottom: 1.25rem;
+    animation: mv-pulse 1.5s ease-in-out infinite;
+}
+
+/* Text */
+.mv-loading-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    opacity: 0.85;
+}
+
+/* Pulse animation */
+@keyframes mv-pulse {
+    0%   { transform: scale(1); opacity: .75; }
+    50%  { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); opacity: .75; }
+}
+
+

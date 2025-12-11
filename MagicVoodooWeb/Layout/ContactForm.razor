@@ -1,0 +1,99 @@
+@using MagicVoodooWeb.Models
+@if (Visible)
+{
+    <div class="mv-contact-backdrop @(Closing ? "closing" : "")" @onclick="OnBackdropClicked">
+
+        <div id="mv-contact-modal" 
+             class="mv-contact-modal @(Closing ? "closing" : "")"
+             @onclick:stopPropagation="true">
+
+            <div class="mv-contact-watermark"></div>
+            
+            @* Close button (floating, outside content flow) *@
+            <button class="mv-close-btn" @onclick="OnCloseClicked">×</button>
+
+            <div class="mv-modal-body">
+
+                <h2 class="mv-modal-title">Contact Us</h2>
+
+                <EditForm Model="@Form" OnValidSubmit="OnSubmitClicked">
+                    <DataAnnotationsValidator />
+
+                    <div class="mv-form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="Form.Name" required class="mv-input" />
+                    </div>
+
+                    <div class="mv-form-group">
+                        <label>Email</label>
+                        <InputText @bind-Value="Form.Email" type="email" required class="mv-input" />
+                    </div>
+
+                    <div class="mv-form-group">
+                        <label>Message</label>
+                        <InputTextArea @bind-Value="Form.Message" required class="mv-textarea" />
+                    </div>
+
+                    <button type="submit" class="mv-submit">Send</button>
+                </EditForm>
+
+                @* Success message gets its own wrapper to avoid layout shifting *@
+                <div class="mv-success-wrapper" hidden="@(!Submitted)">
+                    <p class="mv-success">Your message has been sent!</p>
+                </div>
+                
+                @* Error message gets its own wrapper to avoid layout shifting *@
+                <div class="mv-success-wrapper" hidden="@(!Error)">
+                    <p class="mv-error">Your message has been sent!</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    // UI State Only
+    [Parameter]
+    public bool Visible
+    {
+        get;
+        set
+        {
+            if (field == value)
+                return;
+
+            field = value;
+            VisibleChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
+    
+    [Parameter] public bool CloseOnBackdropClick { get; set; } = true;
+
+    protected bool Submitted { get; set; }
+    protected bool Error { get; set; }
+    protected FormMessage Form { get; set; } = new();
+    public bool Closing { get; set; }
+
+    // UI EVENT HANDLERS (NO BUSINESS LOGIC)
+    Task OnCloseClicked() 
+        => CloseAsync();
+    
+    Task OnBackdropClicked()
+        => CloseOnBackdropClick ? CloseAsync() : Task.CompletedTask ;
+    
+    Task OnSubmitClicked()
+        => SubmitAsync(); // Delegates to code-behind
+
+    protected async Task CloseAsync()
+    {
+        Closing = true;
+        StateHasChanged();
+        await Task.Delay(250); // match animation duration
+        Submitted = false;
+        await VisibleChanged.InvokeAsync(false);
+        Closing = false; // reset
+    }
+}

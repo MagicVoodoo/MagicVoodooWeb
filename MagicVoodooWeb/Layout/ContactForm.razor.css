@@ -1,0 +1,255 @@
+/* --------------------------------------------------------------
+   BACKDROP
+-------------------------------------------------------------- */
+.mv-contact-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: mv-fade-in 0.25s ease forwards;
+}
+
+.mv-contact-backdrop.closing {
+    animation: mv-backdrop-fade-out 0.25s ease forwards;
+}
+
+
+/* --------------------------------------------------------------
+   MODAL PANEL
+-------------------------------------------------------------- */
+/* MAIN MODAL STYLE */
+.mv-contact-modal {
+    width: min(480px, 90%);
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border-radius: 20px;
+    padding: 3rem 2.2rem 2.2rem; /* added top padding for X button */
+    position: relative;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+    animation: mv-modal-pop 0.35s ease forwards;
+    color: var(--mv-fg);
+}
+
+/* Modal internal body */
+.mv-modal-body {
+    padding: 2.2rem;
+    text-align: center;
+}
+
+/* Modal title */
+.mv-modal-title {
+    font-size: 1.7rem;
+    margin: 0 0 1.8rem;
+    letter-spacing: 0.02em;
+}
+
+.mv-contact-modal.closing {
+    animation: mv-modal-fade-out 0.25s ease forwards;
+}
+
+/* --------------------------------------------------------------
+   CLOSE BUTTON
+-------------------------------------------------------------- */
+.mv-close-btn {
+    position: absolute !important;
+    top: 0.9rem;
+    right: 0.9rem;
+
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
+
+    color: var(--mv-fg);
+    font-size: 1.2rem;
+    line-height: 1.1rem;
+    font-weight: 300;
+
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+    z-index: 5;
+}
+
+.mv-close-btn:hover {
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.12);
+}
+
+/* --------------------------------------------------------------
+   FORM GROUPS
+-------------------------------------------------------------- */
+.mv-form-group {
+    text-align: left;
+    margin-bottom: 1.4rem;
+}
+
+.mv-form-group label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    opacity: 0.82;
+}
+
+/* Inputs */
+::deep .mv-input,
+::deep .mv-textarea {
+    width: 100%;
+    padding: 0.65rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    color: var(--mv-fg);
+}
+
+::deep .mv-input:focus,
+::deep .mv-textarea:focus {
+    outline: 2px solid rgba(0,0,0,0.35);
+}
+
+/* Textarea */
+::deep textarea.mv-textarea {
+    width: 100%;
+    min-height: 12rem;
+    max-height: 30vh;
+    resize: vertical;
+
+    padding: 0.75rem;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: var(--mv-fg);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* --------------------------------------------------------------
+   SUBMIT BUTTON
+-------------------------------------------------------------- */
+.mv-submit {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+
+    border: 1px solid var(--mv-fg);
+    background: transparent;
+    color: var(--mv-fg);
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mv-submit:hover {
+    background: var(--mv-fg);
+    color: var(--mv-bg);
+}
+
+/* --------------------------------------------------------------
+   SUCCESS MESSAGE
+-------------------------------------------------------------- */
+.mv-success-wrapper {
+    margin-top: 1.2rem;
+}
+
+.mv-success {
+    font-weight: 600;
+    opacity: 0.85;
+    color: #0a0;
+}
+
+.mv-error{
+    font-weight: 600;
+    opacity: 0.85;
+    color: #a00;
+}
+
+/* --------------------------------------------------------------
+   ANIMATIONS
+-------------------------------------------------------------- */
+@keyframes mv-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes mv-modal-pop {
+    0%   { opacity: 0; transform: translateY(20px) scale(0.92); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes mv-backdrop-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@keyframes mv-modal-fade-out {
+    from { opacity: 1; transform: scale(1) translateY(0); }
+    to   { opacity: 0; transform: scale(0.92) translateY(10px); }
+}
+
+/* --------------------------------------------------------------
+   DARK MODE
+-------------------------------------------------------------- */
+:global(.dark) .mv-contact-modal {
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0 12px 48px rgba(255,255,255,0.12);
+    color: white;
+}
+
+:global(.dark) .mv-input,
+:global(.dark) .mv-textarea {
+    background: rgba(0,0,0,0.25);
+    border-color: rgba(255,255,255,0.25);
+}
+
+:global(.dark) .mv-close-btn {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+/* --------------------------------------------------------------
+   Watermark
+-------------------------------------------------------------- */
+
+/* Modal itself already has your glass styles; just ensure positioning */
+.mv-contact-modal {
+    overflow: hidden; /* clip watermark */
+}
+
+/* WATERMARK LAYER BEHIND CONTENT */
+.mv-contact-watermark {
+    position: absolute;
+    inset: 0;
+    background-image: url('/img/pin.svg');   /* your pin file */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 95%;
+    opacity: 0.11;                           /* subtle */
+    pointer-events: none;                    /* never blocks clicks */
+    z-index: 0;
+    filter: brightness(0) invert(0);         /* dark pin on light/modal bg */
+}
+
+/* Ensure all real content sits above watermark */
+.mv-contact-modal > *:not(.mv-contact-watermark) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dark mode: flip watermark so it stays visible on dark glass */
+@media (prefers-color-scheme: dark) {
+    .mv-contact-watermark {
+        filter: brightness(0) invert(1);     /* light pin on dark bg */
+        opacity: 0.16;                       /* slightly stronger in dark mode */
+    }
+}

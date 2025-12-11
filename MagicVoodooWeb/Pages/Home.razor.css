@@ -1,0 +1,93 @@
+/* --------------------------------------------------------------
+   Magic Voodoo – Option A (Ultra Minimal)
+   Scoped to Home.razor
+-------------------------------------------------------------- */
+
+/* Page container */
+.mv-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding: 6rem 1.5rem 4rem;
+    gap: 3rem;
+}
+
+/* Tagline under logo */
+.mv-tagline {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    max-width: 36rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Generic section wrapper */
+.mv-section {
+    margin-top: 3.5rem;
+}
+
+/* Constrain main content width */
+.mv-content {
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Section headings */
+.mv-section-title {
+    font-size: 1.9rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+}
+
+/* About text */
+.about p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+/* Services list */
+.mv-services-list {
+    list-style: disc;
+    margin: 0 auto;
+    padding-left: 1.4rem;
+    text-align: left;
+    display: inline-block;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Button */
+.mv-btn {
+    padding: 0.7rem 1.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--mv-fg);
+    background: transparent;
+    color: var(--mv-fg);
+    cursor: pointer;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+.mv-btn-primary:hover {
+    background: var(--mv-fg);
+    color: var(--mv-bg);
+    transform: translateY(-2px);
+}
+
+
+/* Dark mode tweaks if needed */
+:global(.dark) .mv-hero {
+    /* keep background from app-wide theme; no extra chrome */
+}
+
+:global(.dark) .mv-linkedin {
+    opacity: 0.8;
+}
