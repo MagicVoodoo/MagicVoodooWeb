@@ -27,6 +27,7 @@ html, body {
     background: var(--mv-bg);
     color: var(--mv-fg);
     transition: background 0.35s ease, color 0.35s ease;
+    font-size: 1.5rem;
 }
 
 /* Remove ugly focus outlines but keep accessibility */

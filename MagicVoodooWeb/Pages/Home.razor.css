@@ -17,7 +17,7 @@
 /* Tagline under logo */
 .mv-tagline {
     margin-top: 1.5rem;
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: 300;
     letter-spacing: 0.03em;
     max-width: 36rem;
@@ -39,7 +39,7 @@
 
 /* Section headings */
 .mv-section-title {
-    font-size: 1.9rem;
+    font-size: 2.7rem;
     margin-bottom: 1.2rem;
     letter-spacing: 0.03em;
     font-weight: 500;
@@ -47,7 +47,7 @@
 
 /* About text */
 .about p {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     opacity: 0.95;
 }
 
@@ -90,4 +90,72 @@
 
 :global(.dark) .mv-linkedin {
     opacity: 0.8;
+}
+/* ----------------------------------------
+   MOBILE RESPONSIVENESS FIXES
+----------------------------------------- */
+
+@media (max-width: 640px) {
+
+    /* Reduce spacing between sections */
+    .mv-hero {
+        padding-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about,
+    .services {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding: 0 1.25rem;
+        text-align: center;
+    }
+
+    /* Improve text readability */
+    .about p,
+    .services ul {
+        max-width: 90%;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Tighten hero subtitle */
+    .mv-tagline {
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Reduce sparkle intensity on mobile */
+    .hero-sparkles::before,
+    .hero-sparkles::after {
+        inset: -10px !important;
+        opacity: 0.45 !important;
+        background-size: 3px 3px, 2px 2px, 3px 3px, 2px 2px !important;
+    }
+
+    /* Services list formatting */
+    .services ul {
+        padding-left: 1rem;
+    }
+
+    .services li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* Contact button spacing */
+    .contact {
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    .contact button {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    /* Footer size */
+    footer.mv-footer {
+        font-size: 0.75rem;
+        padding: 1rem 0;
+    }
 }
