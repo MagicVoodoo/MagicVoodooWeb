@@ -22,14 +22,14 @@
 /* --------------------------------------------------------------
    MODAL PANEL
 -------------------------------------------------------------- */
+/* MAIN MODAL STYLE */
 .mv-contact-modal {
     width: min(480px, 90%);
-    background: rgba(255,255,255,0.18); /* subtle glass */
+    background: rgba(255,255,255,0.18);
     backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
     border-radius: 20px;
-    padding: 0; /* body wrapper controls internal spacing */
-
+    padding: 3rem 2.2rem 2.2rem; /* added top padding for X button */
     position: relative;
     box-shadow: 0 12px 48px rgba(0,0,0,0.28);
     animation: mv-modal-pop 0.35s ease forwards;
@@ -57,7 +57,7 @@
    CLOSE BUTTON
 -------------------------------------------------------------- */
 .mv-close-btn {
-    position: absolute;
+    position: absolute !important;
     top: 0.9rem;
     right: 0.9rem;
 
@@ -76,6 +76,7 @@
 
     cursor: pointer;
     transition: background 0.2s ease, transform 0.15s ease;
+    z-index: 5;
 }
 
 .mv-close-btn:hover {
@@ -214,4 +215,41 @@
 :global(.dark) .mv-close-btn {
     background: rgba(255,255,255,0.15);
     color: white;
+}
+
+/* --------------------------------------------------------------
+   Watermark
+-------------------------------------------------------------- */
+
+/* Modal itself already has your glass styles; just ensure positioning */
+.mv-contact-modal {
+    overflow: hidden; /* clip watermark */
+}
+
+/* WATERMARK LAYER BEHIND CONTENT */
+.mv-contact-watermark {
+    position: absolute;
+    inset: 0;
+    background-image: url('/img/pin.svg');   /* your pin file */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 95%;
+    opacity: 0.11;                           /* subtle */
+    pointer-events: none;                    /* never blocks clicks */
+    z-index: 0;
+    filter: brightness(0) invert(0);         /* dark pin on light/modal bg */
+}
+
+/* Ensure all real content sits above watermark */
+.mv-contact-modal > *:not(.mv-contact-watermark) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Dark mode: flip watermark so it stays visible on dark glass */
+@media (prefers-color-scheme: dark) {
+    .mv-contact-watermark {
+        filter: brightness(0) invert(1);     /* light pin on dark bg */
+        opacity: 0.16;                       /* slightly stronger in dark mode */
+    }
 }

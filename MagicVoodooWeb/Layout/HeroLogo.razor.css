@@ -1,3 +1,4 @@
+/* HERO LOGO BASE */
 .mv-hero-logo {
     width: min(360px, 80vw);
     height: auto;
@@ -5,22 +6,22 @@
     transition: opacity 0.35s ease, transform 0.35s ease;
     user-select: none;
     pointer-events: none;
+    position: relative;
 }
 
-@media (prefers-color-scheme: dark) {
-    .mv-hero-logo,
-    .mv-hero-logo svg,
-    #pin-group,
-    #magic,
-    #voodoo{
-        filter: invert(1);
-    }
-}
 .mv-hero-logo:hover {
     opacity: 1;
     transform: scale(1.02);
 }
 
+/* DARK MODE — INVERT SVG ONLY */
+@media (prefers-color-scheme: dark) {
+    .hero-logo-wrapper svg {
+        filter: invert(1);
+    }
+}
+
+/* Floating Pin */
 #pin-group {
     transform-box: fill-box;
     transform-origin: center;
@@ -28,28 +29,75 @@
 }
 
 @keyframes mv-pin-float {
-    0% {
-        transform: translate(0px, 0px) rotate(0deg);
-    }
-    12% {
-        transform: translate(-4px, -10px) rotate(-0.1deg);
-    }
-    27% {
-        transform: translate(6px, -22px) rotate(0.1deg);
-    }
-    41% {
-        transform: translate(-2px, -15px) rotate(0deg);
-    }
-    58% {
-        transform: translate(8px, -28px) rotate(0.15deg);
-    }
-    74% {
-        transform: translate(-6px, -18px) rotate(-0.1deg);
-    }
-    88% {
-        transform: translate(3px, -26px) rotate(0deg);
-    }
-    100% {
-        transform: translate(0px, 0px) rotate(0deg);
+    0% { transform: translate(0px, 0px) rotate(0deg); }
+    12% { transform: translate(-4px, -10px) rotate(-0.1deg); }
+    27% { transform: translate(6px, -22px) rotate(0.1deg); }
+    41% { transform: translate(-2px, -15px) rotate(0deg); }
+    58% { transform: translate(8px, -28px) rotate(0.15deg); }
+    74% { transform: translate(-6px, -18px) rotate(-0.1deg); }
+    88% { transform: translate(3px, -26px) rotate(0deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+/* Wrapper + layering */
+.hero-logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.mv-hero-logo {
+    position: relative;
+    z-index: 1;   /* logo below sparkles */
+}
+
+.spark-area {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 2;   /* sparkles above logo */
+}
+
+/* defaults to satisfy Blazor CSS isolation and keep variables numeric */
+.sparkle {
+    --x: 50;
+    --y: 50;
+    --size: 4;
+    --delay: 0;
+    --duration: 5;
+
+    position: absolute;
+
+    /* numeric 0–100 mapped to % */
+    left: calc(var(--x) * 1%);
+    top: calc(var(--y) * 1%);
+
+    /* numeric size mapped to px */
+    width: calc(var(--size) * 1px);
+    height: calc(var(--size) * 1px);
+
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+    opacity: 0;
+
+    /* animation split into individual props to avoid shorthand + var issues */
+    animation-name: sparkle-fade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: calc(var(--duration) * 1s);
+    animation-delay: calc(var(--delay) * 1s);
+}
+
+@keyframes sparkle-fade {
+    0%   { opacity: 0;   transform: scale(0.5) translate(0, 0); }
+    25%  { opacity: 0.9; transform: scale(1.0) translate(-2px, -4px); }
+    50%  { opacity: 0.5; transform: scale(0.8) translate(2px, -6px); }
+    75%  { opacity: 0.8; transform: scale(1.2) translate(-1px, -3px); }
+    100% { opacity: 0;   transform: scale(0.5) translate(0, 0); }
+}
+
+@media (prefers-color-scheme: dark) {
+    .sparkle {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
     }
 }

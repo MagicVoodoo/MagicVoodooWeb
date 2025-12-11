@@ -3,9 +3,12 @@
 {
     <div class="mv-contact-backdrop @(Closing ? "closing" : "")" @onclick="OnBackdropClicked">
 
-        <div id="mv-contact-modal" class="mv-contact-modal @(Closing ? "closing" : "")"
+        <div id="mv-contact-modal" 
+             class="mv-contact-modal @(Closing ? "closing" : "")"
              @onclick:stopPropagation="true">
 
+            <div class="mv-contact-watermark"></div>
+            
             @* Close button (floating, outside content flow) *@
             <button class="mv-close-btn" @onclick="OnCloseClicked">×</button>
 
