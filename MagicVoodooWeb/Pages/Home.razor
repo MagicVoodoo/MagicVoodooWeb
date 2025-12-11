@@ -1,11 +1,14 @@
 ﻿@page "/"
-
 <div class="mv-hero">
+
     <HeroLogo />
-    <p class="mv-tagline">Powered by caffeine, code, and questionable wizardry.</p>
-    
-    <section class="about">
-        <h2>About Magic Voodoo</h2>
+
+    <p class="mv-tagline">
+        Powered by caffeine, code, and questionable wizardry.
+    </p>
+
+    <section class="mv-content mv-section">
+        <h2 class="mv-section-title">About Magic Voodoo</h2>
         <p>
             Magic Voodoo is a software development consultancy specializing in modern .NET
             technologies, including Blazor WebAssembly, .NET MAUI, and distributed application
@@ -14,22 +17,26 @@
         </p>
     </section>
 
-    <section class="services">
-        <h2>What We Do</h2>
-        <ul>
-            <li>Modern .NET development</li>
+    <section class="mv-content mv-section">
+        <h2 class="mv-section-title">What We Do</h2>
+        <ul class="mv-services-list">
+            <li>Modern .NET application development</li>
             <li>Cross-platform app design with .NET MAUI</li>
-            <li>Architecture & troubleshooting</li>
-            <li>Performance tuning & integrations</li>
+            <li>Architecture, troubleshooting, and legacy rescue</li>
+            <li>Performance tuning & system integrations</li>
         </ul>
     </section>
-    
-    <section class="contact">
-        <button class="mv-btn mv-btn-primary" @onclick="ContactButtonClicked" >Contact Us</button>
+
+    <section class="mv-section">
+        <button class="mv-btn mv-btn-primary" @onclick="ContactButtonClicked">
+            Contact Us
+        </button>
     </section>
     
-    <ContactForm  @bind-Visible="_contactFormVisible"/>
+    <ContactForm @bind-Visible="_contactFormVisible" />
+
 </div>
+
 
 @code {
     bool _contactFormVisible = false;
